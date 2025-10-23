@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Post {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  excerpt     String?
+  featuredImage String?
+  category    String   @default("general")
+  published   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("posts")
+}
+
+model Partner {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  logo        String?
+  website     String?
+  category    String?
+  country     String?
+  partnership String?
+  projects    Int      @default(0)
+  established String?
+  status      String   @default("active")
+  priority    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("partners")
+}
+
+model Contact {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  company   String?
+  subject   String?
+  message   String
+  status    String   @default("pending") // pending, read, replied
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contacts")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  image       String?
+  category    String   // solar, wind, hydro, etc.
+  capacity    String?  // e.g., "50MW", "100kW"
+  location    String?
+  status      String   @default("completed") // planned, in-progress, completed
+  priority    Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt  
+
+  @@map("projects")
+}
+
+model Setting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value String
+  type  String @default("string") // string, number, boolean, json
+
+  @@map("settings")
+}
+
+model Image {
+  id        String   @id @default(cuid())
+  typeRef   String   // ví dụ: "Project" | "Post" | "Partner" | ...
+  idRef     String   // id của entity tương ứng (cuid/uuid)
+  url       String
+  alt       String?
+  sort      Int      @default(0)
+  createdAt DateTime @default(now())
+
+  @@index([typeRef, idRef])
+  @@index([typeRef, idRef, sort])
+  @@map("images")
+}
