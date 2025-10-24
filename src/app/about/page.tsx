@@ -5,6 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Zap, Leaf, Wind, Droplets, Battery, Wrench, ArrowRight, Loader2, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import Link from 'next/link'
 
 interface Project {
   id: string
@@ -273,7 +274,9 @@ export default function AboutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Muốn Biết Thêm Về Năng Lực Của Chúng Tôi?</h2>
           <p className="text-xl mb-8 text-green-100 max-w-2xl mx-auto">Hãy liên hệ với chúng tôi để được tư vấn chi tiết về các giải pháp năng lượng tái tạo phù hợp với nhu cầu của bạn.</p>
+          <Link href="/contact">
           <Button size="lg" variant="secondary" className="bg-white text-green-600 hover:bg-gray-100">Liên hệ tư vấn</Button>
+          </Link>
         </div>
       </section>
 

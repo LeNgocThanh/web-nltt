@@ -10,9 +10,12 @@ import { Plus, Search, Edit, Trash2, Eye, Loader2, Upload, Calendar, Image as Im
 interface Post {
   id: string
   title: string
+  title_en: string
   slug: string
   content: string
+  content_en: string
   excerpt?: string | null
+  excerpt_en: string | null
   featuredImage?: string | null
   category: string
   published: boolean
@@ -49,9 +52,12 @@ export default function PostsPage() {
 
   // Form fields (create/edit)
   const [fTitle, setFTitle] = useState('')
+  const [fTitle_en, setFTitle_en] = useState('')
   const [fSlug, setFSlug] = useState('')
   const [fContent, setFContent] = useState('')
+  const [fContent_en, setFContent_en] = useState('')
   const [fExcerpt, setFExcerpt] = useState('')
+  const [fExcerpt_en, setFExcerpt_en] = useState('')
   const [fCategory, setFCategory] = useState('general')
   const [fPublished, setFPublished] = useState(false)
   const [fFeaturedImage, setFFeaturedImage] = useState('') // preview cover
@@ -104,9 +110,12 @@ export default function PostsPage() {
     setMode('create')
     setCurrent(null)
     setFTitle('')
+    setFTitle_en('')
     setFSlug('')
     setFContent('')
+    setFContent_en('')
     setFExcerpt('')
+    setFExcerpt_en('')
     setFCategory('general')
     setFPublished(false)
     setFFeaturedImage('')
@@ -126,9 +135,12 @@ export default function PostsPage() {
     setMode('edit')
     setCurrent(p)
     setFTitle(p.title ?? '')
+    setFTitle_en(p.title_en ?? '')
     setFSlug(p.slug ?? '')
     setFContent(p.content ?? '')
+    setFContent_en(p.content_en ?? '')
     setFExcerpt(p.excerpt ?? '')
+    setFExcerpt_en(p.excerpt_en ?? '')
     setFCategory(p.category ?? 'general')
     setFPublished(!!p.published)
     setFFeaturedImage(p.featuredImage ?? '')
@@ -168,9 +180,12 @@ export default function PostsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: fTitle.trim(),
+          title_en: fTitle_en.trim(),
           slug: fSlug.trim(),
           content: fContent.trim(),
+          content_en: fContent_en.trim(),
           excerpt: fExcerpt.trim() || null,
+          excerpt_en: fExcerpt_en.trim() || null,
           category: fCategory.trim() || 'general',
           published: !!fPublished,
           featuredImage: null,
@@ -205,9 +220,12 @@ export default function PostsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: fTitle.trim(),
+          title_en: fTitle_en.trim(),
           slug: fSlug.trim(),
           content: fContent.trim(),
+          content_en: fContent_en.trim(),
           excerpt: fExcerpt.trim() || null,
+          excerpt_en: fExcerpt_en.trim() || null,
           category: fCategory.trim() || 'general',
           published: !!fPublished,
           featuredImage: fFeaturedImage || null,
@@ -569,6 +587,15 @@ export default function PostsPage() {
                 </div>
 
                 <div className="space-y-2">
+                  <div className="text-sm font-medium">Tiêu đề tiếng Anh *</div>
+                  <Input
+                    value={mode === 'view' ? (current?.title_en ?? '') : fTitle_en}
+                    onChange={(e) => setFTitle_en(e.target.value)}
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <div className="text-sm font-medium">Slug *</div>
                   <Input
                     value={mode === 'view' ? (current?.slug ?? '') : fSlug}
@@ -578,11 +605,22 @@ export default function PostsPage() {
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                  <div className="text-sm font-medium">Excerpt</div>
+                  <div className="text-sm font-medium">Trích đoạn</div>
                   <textarea
                     rows={3}
                     value={mode === 'view' ? (current?.excerpt ?? '') : fExcerpt}
                     onChange={(e) => setFExcerpt(e.target.value)}
+                    className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                  <div className="text-sm font-medium">Trích đoạn tiếng Anh</div>
+                  <textarea
+                    rows={3}
+                    value={mode === 'view' ? (current?.excerpt_en ?? '') : fExcerpt_en}
+                    onChange={(e) => setFExcerpt_en(e.target.value)}
                     className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
                     disabled={mode === 'view'}
                   />
@@ -594,6 +632,17 @@ export default function PostsPage() {
                     rows={8}
                     value={mode === 'view' ? (current?.content ?? '') : fContent}
                     onChange={(e) => setFContent(e.target.value)}
+                    className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
+                <div className="space-y-2 md:col-span-2">
+                  <div className="text-sm font-medium">Content tiếng Anh*</div>
+                  <textarea
+                    rows={8}
+                    value={mode === 'view' ? (current?.content_en ?? '') : fContent_en}
+                    onChange={(e) => setFContent_en(e.target.value)}
                     className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
                     disabled={mode === 'view'}
                   />

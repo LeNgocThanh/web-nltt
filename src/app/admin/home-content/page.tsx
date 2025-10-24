@@ -31,14 +31,32 @@ export default function HomeContentPage() {
       description: 'Tiêu đề lớn ở phần hero section'
     },
     {
+      key: 'hero_title_en',
+      label: 'Tiêu đề chính bằng tiếng Anh',
+      type: 'text',
+      description: 'Tiêu đề lớn ở phần hero section'
+    },
+    {
       key: 'hero_subtitle',
       label: 'Tiêu đề phụ',
       type: 'text',
       description: 'Tiêu đề phụ dưới tiêu đề chính'
     },
     {
+      key: 'hero_subtitle_en',
+      label: 'Tiêu đề phụ bằng tiếng Anh',
+      type: 'text',
+      description: 'Tiêu đề phụ dưới tiêu đề chính'
+    },
+    {
       key: 'hero_description',
       label: 'Mô tả hero',
+      type: 'textarea',
+      description: 'Đoạn mô tả trong hero section'
+    },
+    {
+      key: 'hero_description_en',
+      label: 'Mô tả hero bằng tiếng Anh',
       type: 'textarea',
       description: 'Đoạn mô tả trong hero section'
     },
@@ -182,7 +200,7 @@ export default function HomeContentPage() {
               <p className="text-gray-600 mt-1">Chỉnh sửa nội dung hiển thị trên trang chủ</p>
             </div>
             <div className="flex items-center space-x-4">
-              <Link href="/admin">
+              <Link href="/admin/home-content">
                 <Button variant="outline" size="sm">
                   Quay lại
                 </Button>

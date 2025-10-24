@@ -12,11 +12,14 @@ import { BarChart3, Plus, Search, Edit, Trash2, Eye, Loader2, Upload } from 'luc
 interface Project {
   id: string
   title: string
+  title_en: string
   description: string
+  description_en: string
   image?: string | null
-  category: string
+  category: string  
   capacity?: string | null
   location?: string | null
+  location_en?: string | null
   status: string
   priority: number
   createdAt: string
@@ -52,11 +55,14 @@ export default function ProjectsPage() {
 
   // Form fields (used in create/edit)
   const [fTitle, setFTitle] = useState('')
+  const [fTitle_en, setFTitle_en] = useState('')
   const [fDescription, setFDescription] = useState('')
+  const [fDescription_en, setFDescription_en] = useState('')
   const [fImage, setFImage] = useState('') // cover preview (edit only)
-  const [fCategory, setFCategory] = useState('solar')
+  const [fCategory, setFCategory] = useState('solar')  
   const [fCapacity, setFCapacity] = useState('')
   const [fLocation, setFLocation] = useState('')
+  const [fLocation_en, setFLocation_en] = useState('')
   const [fStatus, setFStatus] = useState('completed')
   const [fPriority, setFPriority] = useState<number>(0)
   const [saving, setSaving] = useState(false)
@@ -146,10 +152,13 @@ export default function ProjectsPage() {
     setMode('create')
     setCurrent(null)
     setFTitle('')
+    setFTitle_en('')
     setFDescription('')
+    setFDescription_en('')
     setFCategory('solar')
     setFCapacity('')
     setFLocation('')
+    setFLocation_en('')
     setFStatus('completed')
     setFPriority(0)
     setFImage('') // cover not used in create
@@ -179,11 +188,14 @@ export default function ProjectsPage() {
     setMode('edit')
     setCurrent(p)
     setFTitle(p.title ?? '')
+    setFTitle_en(p.title_en ?? '')
     setFDescription(p.description ?? '')
+    setFDescription_en(p.description_en ?? '')
     setFImage(p.image ?? '')
     setFCategory(p.category ?? 'solar')
     setFCapacity(p.capacity ?? '')
     setFLocation(p.location ?? '')
+    setFLocation_en(p.location_en ?? '')
     setFStatus(p.status ?? 'completed')
     setFPriority(Number.isFinite(p.priority) ? p.priority : 0)
     setModalOpen(true)
@@ -238,10 +250,13 @@ export default function ProjectsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: fTitle.trim(),
+          title_en: fTitle_en.trim(),
           description: fDescription.trim(),
+          description_en: fDescription_en.trim(),
           category: fCategory.trim(),
           capacity: fCapacity.trim() || null,
           location: fLocation.trim() || null,
+          location_en: fLocation_en.trim() || null,
           status: fStatus.trim() || 'completed',
           priority: Number.isFinite(Number(fPriority)) ? Number(fPriority) : 0
         })
@@ -264,7 +279,7 @@ export default function ProjectsPage() {
 
   const handleSaveEdit = async () => {
     if (!current) return
-    if (!fTitle.trim() || !fDescription.trim() || !fCategory.trim()) {
+    if (!fTitle.trim() || !fDescription.trim() || !fCategory.trim() || !fTitle_en.trim() || !fDescription_en.trim()) {
       alert('Vui lòng điền tối thiểu: Tiêu đề, Mô tả, Phân loại.')
       return
     }
@@ -275,11 +290,14 @@ export default function ProjectsPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: fTitle.trim(),
+          title_en: fTitle_en.trim(),
           description: fDescription.trim(),
+          description_en: fDescription.trim(),
           category: fCategory.trim(),
           image: fImage || null,
           capacity: fCapacity.trim() || null,
           location: fLocation.trim() || null,
+          location_en: fLocation.trim() || null,
           status: fStatus.trim() || 'completed',
           priority: Number.isFinite(Number(fPriority)) ? Number(fPriority) : 0
         })
@@ -678,6 +696,15 @@ export default function ProjectsPage() {
                 </div>
 
                 <div className="space-y-2">
+                  <div className="text-sm font-medium">Tiêu đề tiếng Anh*</div>
+                  <Input
+                    value={mode === 'view' ? (current?.title_en ?? '') : fTitle_en}
+                    onChange={e => setFTitle_en(e.target.value)}
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
+                <div className="space-y-2">
                   <div className="text-sm font-medium">Phân loại *</div>
                   <select
                     value={mode === 'view' ? (current?.category ?? 'solar') : fCategory}
@@ -704,6 +731,17 @@ export default function ProjectsPage() {
                   />
                 </div>
 
+                <div className="space-y-2 md:col-span-2">
+                  <div className="text-sm font-medium">Mô tả tiếng Anh*</div>
+                  <textarea
+                    rows={4}
+                    value={mode === 'view' ? (current?.description_en ?? '') : fDescription_en}
+                    onChange={e => setFDescription_en(e.target.value)}
+                    className="block w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:bg-gray-100"
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
                 <div className="space-y-2">
                   <div className="text-sm font-medium">Công suất</div>
                   <Input
@@ -719,6 +757,15 @@ export default function ProjectsPage() {
                   <Input
                     value={mode === 'view' ? (current?.location ?? '') : fLocation}
                     onChange={e => setFLocation(e.target.value)}
+                    disabled={mode === 'view'}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="text-sm font-medium">Địa điểm tiếng Anh</div>
+                  <Input
+                    value={mode === 'view' ? (current?.location_en ?? '') : fLocation_en}
+                    onChange={e => setFLocation_en(e.target.value)}
                     disabled={mode === 'view'}
                   />
                 </div>

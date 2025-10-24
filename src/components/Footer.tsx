@@ -56,12 +56,7 @@ export default function Footer() {
                 <Link href="/trends" className="text-gray-300 hover:text-green-400 transition-colors">
                   Xu hướng xanh
                 </Link>
-              </li>
-              <li>
-                <Link href="/partners" className="text-gray-300 hover:text-green-400 transition-colors">
-                  Đối tác
-                </Link>
-              </li>
+              </li>              
               <li>
                 <Link href="/contact" className="text-gray-300 hover:text-green-400 transition-colors">
                   Liên hệ

@@ -345,18 +345,33 @@ export default function ContactPage() {
           </div>
           
           {/* Map placeholder - In real implementation, you would embed Google Maps */}
-          <div className="aspect-video bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <MapPin className="w-16 h-16 text-green-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">Google Maps</h3>
-              <p className="text-gray-600">
-                số 284 đường Biên Giang, P. Chương Mỹ, TP. Hà Nội, Việt Nam
-              </p>
-              <Button className="mt-4 bg-green-600 hover:bg-green-700">
+          <div className="aspect-video bg-gradient-to-br from-green-100 to-blue-100 rounded-lg flex items-center justify-center relative">
+          
+    {/* 1. KHỐI NHÚNG BẢN ĐỒ IFRAME */}
+    <iframe
+        width="100%"
+        height="100%"
+        style={{ border: 0 }}
+        loading="lazy"
+        allowFullScreen
+        referrerPolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.576201782688!2d105.71015257785253!3d20.92936344143242!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31345275a40c4db5%3A0xa9b2736c41675f0c!2zMjg0IMSQLiBCacOqbiBHaWFuZywgQmnDqm4gR2lhbmcsIEjDoCDEkMO0bmcsIEjDoCBO4buZaSwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1761228902925!5m2!1svi!2sY"
+    />
+    
+    {/* 2. NÚT XEM TRÊN GOOGLE MAPS (Đặt ở vị trí phù hợp) */}
+    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+        <a 
+            href="https://www.google.com/maps/search/?api=1&query=số+284+đường+Biên+Giang,+P.+Chương+Mỹ,+TP.+Hà+Nội,+Việt+Nam" 
+            target="_blank" 
+            rel="noopener noreferrer"
+        >
+            <Button className="bg-green-600 hover:bg-green-700">
                 Xem trên Google Maps
-              </Button>
-            </div>
-          </div>
+            </Button>
+        </a>
+    </div>
+
+</div>
         </div>
       </section>
 

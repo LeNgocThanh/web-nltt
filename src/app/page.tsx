@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { ArrowRight, Zap, Leaf, Users, TrendingUp, Award, Loader2 } from 'lucide-react'
+import { useLang } from '@/app/providers/LangProvider'
 
 interface Setting {
   id: string
@@ -42,6 +43,7 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true)
   const [projects, setProjects] = useState<Project[]>([])
   const [error, setError] = useState('')
+  const { lang, setLang } = useLang()
 
   useEffect(() => {
     fetchSettings()
@@ -224,7 +226,7 @@ export default function HomePage() {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-green-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
